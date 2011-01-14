@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<jbi xmlns="http://java.sun.com/xml/ns/jbi" xmlns:ns0="http://enterprise.netbeans.org/bpel/bookstore-businessprocess/bookstore-businessprocess" xmlns:ns1="http://infosys.tuwien.ac.at/aic10/ass1/dto/customermanagement" xmlns:ns2="http://infosys.tuwien.ac.at/aic10/ass1/dto/warehouse" xmlns:ns3="http://infosys.tuwien.ac.at/aic10/ass2/process" xmlns:ns4="http://www.sun.com/jbi/descriptor/service-unit" version="1.0">
+    <services binding-component="false">
+        <provides endpoint-name="OrderProcessProvider_myRole" interface-name="ns3:OrderProcessPortType" service-name="ns0:order_process_client">
+            <ns4:display-name>order_process_client</ns4:display-name>
+            <ns4:process-name>bookstore-businessprocess</ns4:process-name>
+            <ns4:file-path>bookstore-businessprocess.bpel</ns4:file-path>
+        </provides>
+        <consumes endpoint-name="customer_management_role_partnerRole" interface-name="ns1:CustomerManagement" service-name="ns0:customer_management">
+            <ns4:display-name>customer_management</ns4:display-name>
+            <ns4:process-name>bookstore-businessprocess</ns4:process-name>
+            <ns4:file-path>bookstore-businessprocess.bpel</ns4:file-path>
+        </consumes>
+        <consumes endpoint-name="warehouse_role_partnerRole" interface-name="ns2:Warehouse" service-name="ns0:warehouse_partner_link">
+            <ns4:display-name>warehouse_partner_link</ns4:display-name>
+            <ns4:process-name>bookstore-businessprocess</ns4:process-name>
+            <ns4:file-path>bookstore-businessprocess.bpel</ns4:file-path>
+        </consumes>
+    </services>
+</jbi>

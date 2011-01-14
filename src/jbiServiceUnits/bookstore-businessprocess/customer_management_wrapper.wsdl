@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<definitions
+    xmlns="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="customer_management_wrapper" targetNamespace="http://enterprise.netbeans.org/bpel/customer_management_wrapper" xmlns:tns="http://enterprise.netbeans.org/bpel/customer_management_wrapper" xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype" xmlns:ns="http://infosys.tuwien.ac.at/aic10/ass1/dto/customermanagement">
+    <import location="customer_management.wsdl" namespace="http://infosys.tuwien.ac.at/aic10/ass1/dto/customermanagement"/>
+    <plnk:partnerLinkType name="customer_management_link_type">
+        <plnk:role name="customer_management_role" portType="ns:CustomerManagement"/>
+    </plnk:partnerLinkType>
+</definitions>
+
