@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite errors="0" failures="0" hostname="win7-viao-nb" name="org.netbeans.modules.compapp.catd.ConfiguredTest" tests="1" time="1.211" timestamp="2011-01-16T16:07:21">
+<testsuite errors="0" failures="0" hostname="win7-viao-nb" name="org.netbeans.modules.compapp.catd.ConfiguredTest" tests="1" time="0.844" timestamp="2011-01-16T18:12:08">
   <properties>
     <property name="netbeans.autoupdate.country" value="AT" />
     <property name="com.sun.jbi.sa.internal.routing" value="true" />
@@ -358,7 +358,7 @@
     <property name="file.encoding" value="Cp1252" />
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit" />
   </properties>
-  <testcase classname="org.netbeans.modules.compapp.catd.ConfiguredTest" name="OrderProductFromAustriaSupplier" time="1.195" />
+  <testcase classname="org.netbeans.modules.compapp.catd.ConfiguredTest" name="ShipItemsFromWarehouseOrder" time="0.83" />
   <system-out><![CDATA[GenerateATSOutput=${generate.ats.output}
 NetBeansUserDir=C:\Dev\Programs\NetBeans\6.7\.netbeans\glassfishesb
 awt.toolkit=sun.awt.windows.WToolkit
@@ -416,7 +416,7 @@ user.language=de
 user.name=Sageniuz
 user.timezone=Europe/Berlin
 user.variant=
-Test OrderProductFromAustriaSupplier\Concurrent.properties Passed. Threads count Success: <1> Error: <0> Not completed: <0>
+Test ShipItemsFromWarehouseOrder\Concurrent.properties Passed. Threads count Success: <1> Error: <0> Not completed: <0>
 ]]></system-out>
   <system-err><![CDATA[]]></system-err>
 </testsuite>

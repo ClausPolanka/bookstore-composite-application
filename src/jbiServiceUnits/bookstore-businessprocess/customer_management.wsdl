@@ -35,6 +35,7 @@
 </xs:sequence>
 </xs:complexType>
 </xs:element>
+<xs:element minOccurs="0" name="shippingAddress" type="tns:address" />
 <xs:element minOccurs="0" name="orders">
 <xs:complexType>
 <xs:sequence>

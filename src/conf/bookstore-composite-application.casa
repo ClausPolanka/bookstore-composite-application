@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://infosys.tuwien.ac.at/aic10/ass2/process" xmlns:ns2="http://infosys.tuwien.ac.at/aic10/ass1/dto/customermanagement" xmlns:ns3="http://infosys.tuwien.ac.at/aic10/ass1/dto/warehouse" xmlns:ns4="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplier" xmlns:ns5="http://enterprise.netbeans.org/bpel/bookstore-businessprocess/bookstore-businessprocess" xmlns:xlink="http://www.w3.org/2000/xlink">
+<casa xmlns="http://java.sun.com/xml/ns/casa" xmlns:ns1="http://infosys.tuwien.ac.at/aic10/ass2/process" xmlns:ns2="http://infosys.tuwien.ac.at/aic10/ass1/dto/customermanagement" xmlns:ns3="http://infosys.tuwien.ac.at/aic10/ass1/dto/warehouse" xmlns:ns4="http://infosys.tuwien.ac.at/aic10/ass1/dto/supplier" xmlns:ns5="http://infosys.tuwien.ac.at/aic10/ass1/dto/shipping" xmlns:ns6="http://enterprise.netbeans.org/bpel/bookstore-businessprocess/bookstore-businessprocess" xmlns:xlink="http://www.w3.org/2000/xlink">
     <endpoints>
         <endpoint endpoint-name="OrderProcessPort" interface-name="ns1:OrderProcessPortType" name="endpoint1" service-name="ns1:OrderProcessService"/>
         <endpoint endpoint-name="CustomerManagementPT" interface-name="ns2:CustomerManagement" name="endpoint2" service-name="ns2:CustomerManagementServiceJaxWs"/>
         <endpoint endpoint-name="WarehousePT" interface-name="ns3:Warehouse" name="endpoint3" service-name="ns3:WarehouseService"/>
         <endpoint endpoint-name="SupplierPT" interface-name="ns4:Supplier" name="endpoint4" service-name="ns4:AustriaSupplier"/>
-        <endpoint display-name="order_process_client" endpoint-name="OrderProcessProvider_myRole" file-path="bookstore-businessprocess.bpel" interface-name="ns1:OrderProcessPortType" name="endpoint5" process-name="bookstore-businessprocess" service-name="ns5:order_process_client"/>
-        <endpoint display-name="customer_management" endpoint-name="customer_management_role_partnerRole" file-path="bookstore-businessprocess.bpel" interface-name="ns2:CustomerManagement" name="endpoint6" process-name="bookstore-businessprocess" service-name="ns5:customer_management"/>
-        <endpoint display-name="warehouse_partner_link" endpoint-name="warehouse_role_partnerRole" file-path="bookstore-businessprocess.bpel" interface-name="ns3:Warehouse" name="endpoint7" process-name="bookstore-businessprocess" service-name="ns5:warehouse_partner_link"/>
-        <endpoint display-name="austria_supplier" endpoint-name="austria_supplier_role_partnerRole" file-path="bookstore-businessprocess.bpel" interface-name="ns4:Supplier" name="endpoint8" process-name="bookstore-businessprocess" service-name="ns5:austria_supplier"/>
+        <endpoint endpoint-name="ShippingPT" interface-name="ns5:ShippingService" name="endpoint5" service-name="ns5:ShippingService"/>
+        <endpoint display-name="order_process_client" endpoint-name="OrderProcessProvider_myRole" file-path="bookstore-businessprocess.bpel" interface-name="ns1:OrderProcessPortType" name="endpoint6" process-name="bookstore-businessprocess" service-name="ns6:order_process_client"/>
+        <endpoint display-name="customer_management" endpoint-name="customer_management_role_partnerRole" file-path="bookstore-businessprocess.bpel" interface-name="ns2:CustomerManagement" name="endpoint7" process-name="bookstore-businessprocess" service-name="ns6:customer_management"/>
+        <endpoint display-name="warehouse_partner_link" endpoint-name="warehouse_role_partnerRole" file-path="bookstore-businessprocess.bpel" interface-name="ns3:Warehouse" name="endpoint8" process-name="bookstore-businessprocess" service-name="ns6:warehouse_partner_link"/>
+        <endpoint display-name="austria_supplier" endpoint-name="austria_supplier_role_partnerRole" file-path="bookstore-businessprocess.bpel" interface-name="ns4:Supplier" name="endpoint9" process-name="bookstore-businessprocess" service-name="ns6:austria_supplier"/>
+        <endpoint display-name="shipping_service" endpoint-name="shipping_service_role_partnerRole" file-path="bookstore-businessprocess.bpel" interface-name="ns5:ShippingService" name="endpoint10" process-name="bookstore-businessprocess" service-name="ns6:shipping_service"/>
     </endpoints>
     <service-units>
         <service-engine-service-unit artifacts-zip="bookstore-businessprocess.jar" component-name="sun-bpel-engine" defined="true" description="Represents this Service Unit" internal="true" name="bookstore-composite-application-bookstore-businessprocess" unit-name="bookstore-businessprocess" unknown="false" x="-1" y="-1">
-            <provides endpoint="endpoint5"/>
-            <consumes endpoint="endpoint6"/>
+            <provides endpoint="endpoint6"/>
             <consumes endpoint="endpoint7"/>
             <consumes endpoint="endpoint8"/>
+            <consumes endpoint="endpoint9"/>
+            <consumes endpoint="endpoint10"/>
         </service-engine-service-unit>
         <binding-component-service-unit artifacts-zip="sun-http-binding.jar" component-name="sun-http-binding" description="Represents this Service Unit" name="bookstore-composite-application-sun-http-binding" unit-name="sun-http-binding">
             <ports>
@@ -35,6 +38,11 @@
                     <provides endpoint="endpoint1"/>
                 </port>
                 <port x="0" y="-1">
+                    <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/shipping_service.wsdl#xpointer(/definitions/service[@name='ShippingService']/port[@name='ShippingPT'])" xlink:type="simple"/>
+                    <consumes endpoint="endpoint5"/>
+                    <provides endpoint="endpoint5"/>
+                </port>
+                <port x="0" y="-1">
                     <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/warehouse.wsdl#xpointer(/definitions/service[@name='WarehouseService']/port[@name='WarehousePT'])" xlink:type="simple"/>
                     <consumes endpoint="endpoint3"/>
                     <provides endpoint="endpoint3"/>
@@ -43,27 +51,31 @@
         </binding-component-service-unit>
     </service-units>
     <connections>
-        <connection consumer="endpoint7" provider="endpoint3" state="unchanged"/>
-        <connection consumer="endpoint6" provider="endpoint2" state="unchanged"/>
-        <connection consumer="endpoint1" provider="endpoint5" state="unchanged"/>
-        <connection consumer="endpoint8" provider="endpoint4" state="unchanged"/>
+        <connection consumer="endpoint8" provider="endpoint3" state="unchanged"/>
+        <connection consumer="endpoint7" provider="endpoint2" state="unchanged"/>
+        <connection consumer="endpoint10" provider="endpoint5" state="unchanged"/>
+        <connection consumer="endpoint1" provider="endpoint6" state="unchanged"/>
+        <connection consumer="endpoint9" provider="endpoint4" state="unchanged"/>
     </connections>
     <porttypes>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/austria_supplier.wsdl#xpointer(/definitions/portType[@name='Supplier'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/customer_management.wsdl#xpointer(/definitions/portType[@name='CustomerManagement'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/OrderProcess.wsdl#xpointer(/definitions/portType[@name='OrderProcessPortType'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/shipping_service.wsdl#xpointer(/definitions/portType[@name='ShippingService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/warehouse.wsdl#xpointer(/definitions/portType[@name='Warehouse'])" xlink:type="simple"/>
     </porttypes>
     <bindings>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/austria_supplier.wsdl#xpointer(/definitions/binding[@name='AustriaSupplierSoapBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/customer_management.wsdl#xpointer(/definitions/binding[@name='CustomerManagementServiceJaxWsSoapBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/OrderProcess.wsdl#xpointer(/definitions/binding[@name='OrderProcessBinding'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/shipping_service.wsdl#xpointer(/definitions/binding[@name='ShippingServiceSoapBinding'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/warehouse.wsdl#xpointer(/definitions/binding[@name='WarehouseServiceSoapBinding'])" xlink:type="simple"/>
     </bindings>
     <services>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/austria_supplier.wsdl#xpointer(/definitions/service[@name='AustriaSupplier'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/customer_management.wsdl#xpointer(/definitions/service[@name='CustomerManagementServiceJaxWs'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/OrderProcess.wsdl#xpointer(/definitions/service[@name='OrderProcessService'])" xlink:type="simple"/>
+        <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/shipping_service.wsdl#xpointer(/definitions/service[@name='ShippingService'])" xlink:type="simple"/>
         <link xlink:href="../jbiServiceUnits/bookstore-businessprocess/warehouse.wsdl#xpointer(/definitions/service[@name='WarehouseService'])" xlink:type="simple"/>
     </services>
     <regions>
